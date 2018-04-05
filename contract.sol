@@ -39,11 +39,11 @@ contract NewAccountContract {
 
     function deposit() public payable returns(string errorcode) {
         if (msg.sender != owner) {
-            emit ContractStatus("DEPOSIT", "not owner");
+            ContractStatus("DEPOSIT", "not owner");
             errorcode = "NOT_OWNER";
             return;
         } else {
-            emit ContractStatus("DEPOSIT", "success");
+            ContractStatus("DEPOSIT", "success");
             errorcode = "SUCCESS";
             return;
         }
@@ -52,28 +52,28 @@ contract NewAccountContract {
     function newAccount(address _address, string _username, string _password, string _fullname, string _phone, string _email) public payable {
 
         if (msg.sender != owner) {
-            emit ContractStatus("CREATE", "NOT_OWNER");
+            ContractStatus("CREATE", "NOT_OWNER");
         } else {
             if (address(this).balance >= 1 ether) {
                 
                 if( keccak256(accounts[_username].username) == keccak256("")) {
                 // accounts[_address] = Account(_username, password, fulname, phone, email);
 
-                    accounts[_username].username = _username;
-                    accounts[_username].password = _password;
-                    accounts[_username].fullname = _fullname;
-                    accounts[_username].phone = _phone;
-                    accounts[_username].email = _email;
+                    // accounts[_username].username = _username;
+                    // accounts[_username].password = _password;
+                    // accounts[_username].fullname = _fullname;
+                    // accounts[_username].phone = _phone;
+                    // accounts[_username].email = _email;
                     
                     // transfer 1 ether to new account
                     _address.transfer(1 ether);
     
-                    emit ContractStatus("CREATE", "SUCCESS");
+                    ContractStatus("CREATE", "SUCCESS");
                 } else {
-                    emit ContractStatus("CREATE_ALREADY_EXIST", "");
+                    ContractStatus("CREATE_ALREADY_EXIST", "");
                 }
             } else {
-                emit ContractStatus("CREATE", "INSUFFICIENT_AMOUNT");
+                ContractStatus("CREATE", "INSUFFICIENT_AMOUNT");
             }
         }
     }
